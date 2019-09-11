@@ -1,0 +1,28 @@
+﻿apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aspnetdeploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      appname: helloworldaspnet
+  template:
+    metadata:
+      labels:
+        appname: helloworldaspnet
+    spec:
+      containers:
+      -  name: helloworldaspnetctr
+         image: myjwregistry.azurecr.io/aspnetcore:v1
+         ports:
+         - containerPort: 80
+         resources:
+           requests: 
+             cpu: "100Mi"
+             memory: "50Mi"
+           limits:
+             cpu: "200Mi"
+             memory: "100Mi"
+      imagePullSecrets:
+      -  name: acrsecret
